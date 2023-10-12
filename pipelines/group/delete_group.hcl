@@ -1,6 +1,6 @@
-pipeline "get_application" {
-  title       = "Get Application"
-  description = "Get an application by ID."
+pipeline "delete_group" {
+  title       = "Delete Group"
+  description = "Delete a group by ID."
 
   param "token" {
     type        = string
@@ -14,22 +14,17 @@ pipeline "get_application" {
     default     = var.okta_domain
   }
 
-  param "app_id" {
-    description = "ID of an application."
+  param "group_id" {
+    description = "The ID of a group."
     type        = string
   }
 
-  step "http" "get_app" {
-    method = "get"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}"
+  step "http" "delete_group" {
+    method = "delete"
+    url    = "${param.domain}/api/v1/groups/${param.group_id}"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.token}"
     }
-  }
-
-  output "application" {
-    description = "Application details."
-    value       = step.http.get_app.response_body
   }
 }

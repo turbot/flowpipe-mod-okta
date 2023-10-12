@@ -1,6 +1,6 @@
-pipeline "get_application" {
-  title       = "Get Application"
-  description = "Get an application by ID."
+pipeline "list_group" {
+  title       = "List Groups"
+  description = "List of groups for the okta account."
 
   param "token" {
     type        = string
@@ -14,22 +14,18 @@ pipeline "get_application" {
     default     = var.okta_domain
   }
 
-  param "app_id" {
-    description = "ID of an application."
-    type        = string
-  }
-
-  step "http" "get_app" {
+  step "http" "list_group" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}"
+    url    = "${param.domain}/api/v1/groups?limit=200"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.token}"
     }
   }
 
-  output "application" {
-    description = "Application details."
-    value       = step.http.get_app.response_body
+
+  output "group" {
+    description = "Group details."
+    value       = step.http.list_group.response_body
   }
 }

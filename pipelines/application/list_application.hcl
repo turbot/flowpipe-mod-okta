@@ -1,14 +1,17 @@
 pipeline "list_application" {
-  description = "List of application of for the account."
+  title       = "List Application"
+  description = "List applications."
 
   param "token" {
-    type    = string
-    default = var.token
+    type        = string
+    description = "The Okta personal access token to authenticate to the okta APIs."
+    default     = var.token
   }
 
   param "domain" {
-    type    = string
-    default = var.okta_domain
+    type        = string
+    description = "The URL of the Okta domain."
+    default     = var.okta_domain
   }
 
   // Kept here for future paging use
@@ -18,7 +21,6 @@ pipeline "list_application" {
   }
 
   step "http" "list_app" {
-    title  = "List of applications for an okta account."
     method = "get"
     url    = "${param.domain}/api/v1/apps"
     request_headers = {
@@ -28,14 +30,8 @@ pipeline "list_application" {
   }
 
 
-  output "response_body" {
-    value = step.http.list_app.response_body
+  output "applications" {
+    description = "Applications details."
+    value       = step.http.list_app.response_body
   }
-  output "response_headers" {
-    value = step.http.list_app.response_headers
-  }
-  output "status_code" {
-    value = step.http.list_app.status_code
-  }
-
 }

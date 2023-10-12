@@ -1,30 +1,35 @@
 pipeline "add_application" {
-  description = "Add Application."
+  title       = "Create/Add Application"
+  description = "Create or Add an application."
 
   param "token" {
-    type    = string
-    default = var.token
+    type        = string
+    description = "The Okta personal access token to authenticate to the okta APIs."
+    default     = var.token
   }
 
   param "domain" {
-    type    = string
-    default = var.okta_domain
+    type        = string
+    description = "The URL of the Okta domain."
+    default     = var.okta_domain
   }
 
   param "name" {
-    type = string
+    description = "Unique key for app definition."
+    type        = string
   }
 
   param "label" {
-    type = string
+    description = "User-defined display name for app."
+    type        = string
   }
 
   param "sign_on_mode" {
-    type = string
+    description = "Authentication mode of app."
+    type        = string
   }
 
   step "http" "add_app" {
-    title  = "Add an application."
     method = "post"
     url    = "${param.domain}/api/v1/apps"
     request_headers = {
@@ -33,21 +38,14 @@ pipeline "add_application" {
     }
 
     request_body = jsonencode({
-      name = "${param.name}"
-      label = "${param.label}"
+      name       = "${param.name}"
+      label      = "${param.label}"
       signOnMode = "${param.sign_on_mode}"
     })
   }
 
-
-  output "response_body" {
-    value = step.http.add_app.response_body
+  output "application" {
+    description = "Application Details"
+    value       = step.http.add_app.response_body
   }
-  output "response_headers" {
-    value = step.http.add_app.response_headers
-  }
-  output "status_code" {
-    value = step.http.add_app.status_code
-  }
-
 }

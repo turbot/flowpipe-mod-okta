@@ -1,6 +1,6 @@
-pipeline "get_application" {
-  title       = "Get Application"
-  description = "Get an application by ID."
+pipeline "list_groups_assign_to_application" {
+  title       = "Application Group Assignments Listing"
+  description = "List groups assign to an application by ID."
 
   param "token" {
     type        = string
@@ -19,17 +19,17 @@ pipeline "get_application" {
     type        = string
   }
 
-  step "http" "get_app" {
+  step "http" "list_groups_assign_to_application" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}"
+    url    = "${param.domain}/api/v1/apps/${param.app_id}/groups"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.token}"
     }
   }
 
-  output "application" {
-    description = "Application details."
-    value       = step.http.get_app.response_body
+  output "groupAssigned" {
+    description = "Group assignment details of an application"
+    value       = step.http.list_groups_assign_to_application.response_body
   }
 }
