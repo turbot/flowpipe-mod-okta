@@ -60,10 +60,10 @@ pipeline "update_application" {
     }
 
     request_body = jsonencode({
-      name       = (param.name != "" ? param.label : jsondecode(step.pipeline.get_app_details.application)["label"])
-      label      = (param.label != "" ? param.label : jsondecode(step.pipeline.get_app_details.application)["label"])
-      signOnMode = (param.sign_on_mode != "" ? param.sign_on_mode : jsondecode(step.pipeline.get_app_details.application)["signOnMode"])
-      status     = (param.status != "" ? param.status : jsondecode(step.pipeline.get_app_details.application)["status"])
+      name       = (param.name != null ? param.name : jsondecode(step.pipeline.get_app_details.name)["name"])
+      label      = (param.label != null ? param.label : jsondecode(step.pipeline.get_app_details.label)["label"])
+      signOnMode = (param.sign_on_mode != null ? param.sign_on_mode : jsondecode(step.pipeline.get_app_details.sign_on_mode)["signOnMode"])
+      status     = (param.status != null ? param.status : jsondecode(step.pipeline.get_app_details.status)["status"])
 
     })
   }
