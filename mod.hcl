@@ -1,5 +1,5 @@
 mod "okta_mod" {
-    title         = "Okta"
+  title         = "Okta"
   description   = "Okta mod containing standard pipelines and triggers."
   color         = "#00297A"
   documentation = file("./docs/index.md")
