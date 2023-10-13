@@ -1,6 +1,6 @@
-pipeline "list_application" {
-  title       = "List Application"
-  description = "List applications."
+pipeline "list_users" {
+  title       = "List Users"
+  description = "List users."
 
   param "token" {
     type        = string
@@ -14,24 +14,17 @@ pipeline "list_application" {
     default     = var.okta_domain
   }
 
-  // Kept here for future paging use
-  param "app_limit" {
-    type    = number
-    default = 200
-  }
-
-  step "http" "list_app" {
+  step "http" "list_users" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps"
+    url    = "${param.domain}/api/v1/users?limit=200"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.token}"
     }
   }
 
-
-  output "applications" {
-    description = "Applications details."
-    value       = step.http.list_app.response_body
+  output "users" {
+    description = "User details."
+    value       = step.http.list_users.response_body
   }
 }

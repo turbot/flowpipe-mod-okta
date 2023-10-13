@@ -1,6 +1,6 @@
-pipeline "list_group" {
-  title       = "List Groups"
-  description = "List of groups for the okta account."
+pipeline "list_applications" {
+  title       = "List Applications"
+  description = "List applications."
 
   param "token" {
     type        = string
@@ -14,18 +14,23 @@ pipeline "list_group" {
     default     = var.okta_domain
   }
 
-  step "http" "list_group" {
+  // Kept here for future paging use
+  param "app_limit" {
+    type    = number
+    default = 200
+  }
+
+  step "http" "list_applications" {
     method = "get"
-    url    = "${param.domain}/api/v1/groups?limit=200"
+    url    = "${param.domain}/api/v1/apps"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.token}"
     }
   }
 
-
-  output "group" {
-    description = "Group details."
-    value       = step.http.list_group.response_body
+  output "applications" {
+    description = "Applications details."
+    value       = step.http.list_applications.response_body
   }
 }

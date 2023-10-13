@@ -1,4 +1,4 @@
-pipeline "list_group_member" {
+pipeline "list_group_members" {
   title       = "List Group Members"
   description = "List members of a group by ID."
 
@@ -19,7 +19,7 @@ pipeline "list_group_member" {
     type        = string
   }
 
-  step "http" "list_group_member" {
+  step "http" "list_group_members" {
     method = "get"
     url    = "${param.domain}/api/v1/groups/${param.group_id}/users"
     request_headers = {
@@ -31,13 +31,6 @@ pipeline "list_group_member" {
 
   output "groupMembers" {
     description = "Member details of a group."
-    value       = step.http.list_group_member.response_body
+    value       = step.http.list_group_members.response_body
   }
-  output "response_headers" {
-    value = step.http.list_group_member.response_headers
-  }
-  output "status_code" {
-    value = step.http.list_group_member_app.status_code
-  }
-
 }
