@@ -1,5 +1,5 @@
 pipeline "update_user_profile" {
-  title       = "Update a user profile"
+  title       = "Update User Profile"
   description = "Update a user profile by ID."
 
   param "token" {
@@ -22,31 +22,31 @@ pipeline "update_user_profile" {
   param "first_name" {
     type        = string
     description = "The first name of the user."
-    default     = ""
+    optional    = true
   }
 
   param "last_name" {
     type        = string
     description = "The last name of the user."
-    default     = ""
+    optional    = true
   }
 
   param "email" {
     type        = string
     description = "The email address associated with the user's account."
-    default     = ""
+    optional    = true
   }
 
   param "login" {
     type        = string
     description = "The username or identifier used for the user to log in."
-    default     = ""
+    optional    = true
   }
 
   param "mobile_phone" {
     type        = string
     description = "The user's mobile phone number."
-    default     = ""
+    optional    = true
   }
 
   step "pipeline" "get_user_details" {
@@ -67,10 +67,10 @@ pipeline "update_user_profile" {
 
     request_body = jsonencode({
       profile = {
-        firstName = (param.first_name != "" ? param.first_name : jsondecode(step.pipeline.get_user_details.response_body).profile.firstName)
-        lastName  = (param.last_name != "" ? param.last_name : jsondecode(step.pipeline.get_user_details.response_body).profile.lastName)
-        email     = (param.email != "" ? param.email : jsondecode(step.pipeline.get_user_details.response_body).profile.email)
-        login     = (param.login != "" ? param.login : jsondecode(step.pipeline.get_user_details.response_body).profile.login)
+        firstName = (param.first_name != null ? param.first_name : jsondecode(step.pipeline.get_user_details.response_body).profile.firstName)
+        lastName  = (param.last_name != null ? param.last_name : jsondecode(step.pipeline.get_user_details.response_body).profile.lastName)
+        email     = (param.email != null ? param.email : jsondecode(step.pipeline.get_user_details.response_body).profile.email)
+        login     = (param.login != null ? param.login : jsondecode(step.pipeline.get_user_details.response_body).profile.login)
       }
     })
   }

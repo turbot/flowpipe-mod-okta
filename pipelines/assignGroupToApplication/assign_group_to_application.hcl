@@ -1,5 +1,5 @@
 pipeline "assign_group_to_application" {
-  title       = "Graoup assignment to Application"
+  title       = "Group assignment to Application"
   description = "Assign a group to an application."
 
   param "token" {

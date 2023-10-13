@@ -22,25 +22,25 @@ pipeline "update_application" {
   param "name" {
     type        = string
     description = "Unique key for app definition."
-    default     = ""
+    optional    = true
   }
 
   param "label" {
     type        = string
     description = "User-defined display name for app."
-    default     = ""
+    optional    = true
   }
 
   param "sign_on_mode" {
     type        = string
     description = "Authentication mode of app."
-    default     = ""
+    optional    = true
   }
 
   param "status" {
     type        = string
     description = "Status of app."
-    default     = ""
+    optional    = true
   }
 
   step "pipeline" "get_app_details" {

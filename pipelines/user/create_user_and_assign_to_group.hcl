@@ -22,37 +22,37 @@ pipeline "create_user_assign_to_group" {
   param "first_name" {
     type        = string
     description = "The first name of the user."
-    default     = ""
+    optional    = true
   }
 
   param "last_name" {
     type        = string
     description = "The last name of the user."
-    default     = ""
+    optional    = true
   }
 
   param "email" {
     type        = string
     description = "The email address associated with the user's account."
-    default     = ""
+    optional    = true
   }
 
   param "login" {
     type        = string
     description = "The username or identifier used for the user to log in."
-    default     = ""
+    optional    = true
   }
 
   param "mobile_phone" {
     type        = string
     description = "The user's mobile phone number."
-    default     = ""
+    optional    = true
   }
 
   param "credential_pwd" {
     type        = string
     description = "The user's password for authentication."
-    default     = ""
+    optional    = true
   }
 
   step "pipeline" "create_user" {
