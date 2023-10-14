@@ -33,7 +33,7 @@ brew install flowpipe
 Clone:
 
 ```sh
-git clone https://okta.com/turbot/flowpipe-mod-okta.git
+git clone https://github.com/turbot/flowpipe-mod-okta.git
 cd flowpipe-mod-okta
 ```
 
