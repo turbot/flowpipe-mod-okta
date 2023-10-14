@@ -23,8 +23,8 @@ brew install flowpipe
 Clone:
 
 ```sh
-git clone https://Okta.com/turbot/flowpipe-mod-okta.git
-cd flowpipe-mod-Okta
+git clone https://okta.com/turbot/flowpipe-mod-okta.git
+cd flowpipe-mod-okta
 ```
 
 ### Usage
