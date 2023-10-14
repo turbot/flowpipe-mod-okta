@@ -2,10 +2,10 @@ pipeline "update_user_profile" {
   title       = "Update User Profile"
   description = "Update a user profile by ID."
 
-  param "token" {
+  param "api_token" {
     type        = string
-    description = "The Okta personal access token to authenticate to the okta APIs."
-    default     = var.token
+    description = "The Okta personal access api_token to authenticate to the okta APIs."
+    default     = var.api_token
   }
 
   param "domain" {
@@ -50,16 +50,16 @@ pipeline "update_user_profile" {
   }
 
   step "http" "update_user_profile" {
-    method     = "post"
-    url        = "${param.domain}/api/v1/users/${param.user_id}"
+    method = "post"
+    url    = "${param.domain}/api/v1/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.token}"
+      Authorization = "SSWS ${param.api_token}"
     }
 
     request_body = jsonencode({
       profile = {
-         for name, value in param : try(local.user_common_param[name], name) => value if contains(keys(local.user_common_param), name) && value != null
+        for name, value in param : try(local.user_common_param[name], name) => value if contains(keys(local.user_common_param), name) && value != null
       }
     })
   }

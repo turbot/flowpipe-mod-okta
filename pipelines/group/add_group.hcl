@@ -2,10 +2,10 @@ pipeline "add_group" {
   title       = "Create Group"
   description = "Create a group."
 
-  param "token" {
+  param "api_token" {
     type        = string
-    description = "The Okta personal access token to authenticate to the okta APIs."
-    default     = var.token
+    description = "The Okta personal access api_token to authenticate to the okta APIs."
+    default     = var.api_token
   }
 
   param "domain" {
@@ -27,7 +27,7 @@ pipeline "add_group" {
     url    = "${param.domain}/api/v1/groups"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.token}"
+      Authorization = "SSWS ${param.api_token}"
     }
 
     request_body = jsonencode({

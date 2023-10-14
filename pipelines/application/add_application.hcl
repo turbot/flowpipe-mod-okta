@@ -2,10 +2,10 @@ pipeline "add_application" {
   title       = "Create/Add Application"
   description = "Create or Add an application."
 
-  param "token" {
+  param "api_token" {
     type        = string
-    description = "The Okta personal access token to authenticate to the okta APIs."
-    default     = var.token
+    description = "The Okta personal access api_token to authenticate to the okta APIs."
+    default     = var.api_token
   }
 
   param "domain" {
@@ -29,12 +29,12 @@ pipeline "add_application" {
     type        = string
   }
 
-  step "http" "add_app" {
+  step "http" "add_application" {
     method = "post"
     url    = "${param.domain}/api/v1/apps"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.token}"
+      Authorization = "SSWS ${param.api_token}"
     }
 
     request_body = jsonencode({
@@ -46,6 +46,6 @@ pipeline "add_application" {
 
   output "application" {
     description = "Application Details"
-    value       = step.http.add_app.response_body
+    value       = step.http.add_application.response_body
   }
 }

@@ -2,10 +2,10 @@ pipeline "remove_group_from_application" {
   title       = "Group removal from Application"
   description = "Remove a group assignment from an application."
 
-  param "token" {
+  param "api_token" {
     type        = string
-    description = "The Okta personal access token to authenticate to the okta APIs."
-    default     = var.token
+    description = "The Okta personal access api_token to authenticate to the okta APIs."
+    default     = var.api_token
   }
 
   param "domain" {
@@ -29,7 +29,7 @@ pipeline "remove_group_from_application" {
     url    = "${param.domain}/api/v1/apps/${param.app_id}/groups/${param.group_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.token}"
+      Authorization = "SSWS ${param.api_token}"
     }
   }
 }

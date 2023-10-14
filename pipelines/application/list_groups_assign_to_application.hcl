@@ -2,10 +2,10 @@ pipeline "list_groups_assign_to_application" {
   title       = "Application Group Assignments Listing"
   description = "List groups assign to an application by ID."
 
-  param "token" {
+  param "api_token" {
     type        = string
-    description = "The Okta personal access token to authenticate to the okta APIs."
-    default     = var.token
+    description = "The Okta personal access api_token to authenticate to the okta APIs."
+    default     = var.api_token
   }
 
   param "domain" {
@@ -24,7 +24,7 @@ pipeline "list_groups_assign_to_application" {
     url    = "${param.domain}/api/v1/apps/${param.app_id}/groups"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.token}"
+      Authorization = "SSWS ${param.api_token}"
     }
   }
 

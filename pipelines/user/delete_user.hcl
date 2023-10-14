@@ -2,10 +2,10 @@ pipeline "delete_user" {
   title       = "Delete User"
   description = "Delete a user by ID."
 
-  param "token" {
+  param "api_token" {
     type        = string
-    description = "The Okta personal access token to authenticate to the okta APIs."
-    default     = var.token
+    description = "The Okta personal access api_token to authenticate to the okta APIs."
+    default     = var.api_token
   }
 
   param "domain" {
@@ -24,7 +24,7 @@ pipeline "delete_user" {
     url    = "${param.domain}/api/v1/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.token}"
+      Authorization = "SSWS ${param.api_token}"
     }
   }
 }
