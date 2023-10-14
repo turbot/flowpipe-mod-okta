@@ -24,7 +24,7 @@ pipeline "list_users" {
   }
 
   output "users" {
-    description = "User details."
+    description = "Details of the users."
     value       = step.http.list_users.response_body
   }
 }

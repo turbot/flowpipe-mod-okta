@@ -19,7 +19,7 @@ pipeline "get_application" {
     type        = string
   }
 
-  step "http" "get_app" {
+  step "http" "get_application" {
     method = "get"
     url    = "${param.domain}/api/v1/apps/${param.app_id}"
     request_headers = {
@@ -30,6 +30,6 @@ pipeline "get_application" {
 
   output "application" {
     description = "Application details."
-    value       = step.http.get_app.response_body
+    value       = step.http.get_application.response_body
   }
 }

@@ -19,7 +19,7 @@ pipeline "delete_application" {
     type        = string
   }
 
-  step "http" "delete_app" {
+  step "http" "delete_application" {
     method = "delete"
     url    = "${param.domain}/api/v1/apps/${param.app_id}"
     request_headers = {

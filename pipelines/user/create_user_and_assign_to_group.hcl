@@ -66,7 +66,7 @@ pipeline "create_user_assign_to_group" {
     }
   }
 
-  step "http" "assign_user_to_group" {
+  step "http" "create_user_assign_to_group" {
     depends_on = [step.pipeline.create_user]
     method     = "put"
     url        = "${param.domain}/api/v1/groups/${param.group_id}/users/${jsondecode(step.pipeline.create_user.user).id}"
@@ -82,6 +82,6 @@ pipeline "create_user_assign_to_group" {
   }
   output "assignment" {
     description = "Group assignment details for a user."
-    value       = step.http.assign_user_to_group.response_body
+    value       = step.http.create_user_assign_to_group.response_body
   }
 }

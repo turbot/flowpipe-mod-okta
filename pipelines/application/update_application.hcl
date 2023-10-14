@@ -43,7 +43,7 @@ pipeline "update_application" {
     optional    = true
   }
 
-  step "http" "update_app" {
+  step "http" "update_application" {
     method     = "put"
     url        = "${param.domain}/api/v1/apps/${param.app_id}"
     request_headers = {
@@ -58,6 +58,6 @@ pipeline "update_application" {
 
   output "UpdatedApplication" {
     description = "Updated application details."
-    value       = step.http.update_app.response_body
+    value       = step.http.update_application.response_body
   }
 }

@@ -68,10 +68,4 @@ pipeline "update_user_profile" {
     description = "Updated user profile details."
     value       = step.http.update_user_profile.response_body
   }
-
-  output "user" {
-    description = "User details."
-    value       = step.pipeline.get_user_details.response_body
-  }
-
 }
