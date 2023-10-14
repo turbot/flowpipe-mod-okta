@@ -2,7 +2,7 @@
 
 Run pipelines and use triggers for Okta resources.
 
-The Flowpipe GitLab Mod is a versatile and easy-to-use workflow automation tool designed to streamline GitLab-related tasks. This mod is a part of the Flowpipe ecosystem, which focuses on providing low-code, modular, and lightweight solutions for your GitLab workflow automation needs.
+The Flowpipe Okta Mod is a versatile and easy-to-use workflow automation tool designed to streamline Okta-related tasks. This mod is a part of the Flowpipe ecosystem, which focuses on providing low-code, modular, and lightweight solutions for your Okta workflow automation needs.
 
 # Documentation
 
