@@ -1,14 +1,14 @@
-mod "okta_mod" {
-  title         = "Okta"
-  description   = "Okta mod containing standard pipelines and triggers."
+mod "okta" {
+  title         = "Okta Library"
+  description   = "Run pipelines and triggers that interact with Okta."
   color         = "#00297A"
   documentation = file("./docs/index.md")
-  icon          = "/images/flowpipe/mods/turbot/okta.svg"
-  categories    = ["okta"]
+  icon          = "/images/flowpipe/mods/turbot/github.svg"
+  categories    = ["github"]
 
   opengraph {
-    title       = "Okta"
-    description = "Okta mod containing standard pipelines and triggers."
-    image       = "/images/flowpipe/mods/turbot/okta-social-graphic.png"
+    title       = "Okta Library"
+    description = "Run pipelines and triggers that interact with Okta."
+    image       = "/images/flowpipe/mods/turbot/github-social-graphic.png"
   }
 }
