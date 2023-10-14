@@ -64,9 +64,9 @@ If you have an idea for additional controls or just want to help maintain and ex
 
 - **[Join our Slack community →](https://flowpipe.io/community/join)** and hang out with other Mod developers.
 
-Please see the [contribution guidelines](https://Okta.com/turbot/flowpipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://Okta.com/turbot/flowpipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://Okta.com/turbot/flowpipe-mod-Okta/blob/main/LICENSE).
+Please see the [contribution guidelines](https://github.com/turbot/flowpipe/blob/main/CONTRIBUTING.md) and our [code of conduct](https://github.com/turbot/flowpipe/blob/main/CODE_OF_CONDUCT.md). All contributions are subject to the [Apache 2.0 open source license](https://github.com/turbot/flowpipe-mod-okta/blob/main/LICENSE).
 
 Want to help but not sure where to start? Pick up one of the `help wanted` issues:
 
-- [Flowpipe](https://Okta.com/turbot/flowpipe/labels/help%20wanted)
-- [Okta Library Mod](https://Okta.com/turbot/flowpipe-mod-Okta/labels/help%20wanted)
+- [Flowpipe](https://github.com/turbot/flowpipe/labels/help%20wanted)
+- [Okta Library Mod](https://github.com/turbot/flowpipe-mod-okta/labels/help%20wanted)
