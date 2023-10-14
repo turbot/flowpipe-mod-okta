@@ -60,7 +60,7 @@ These are only some of the ways you can set variables. For a full list, please s
 
 ## Contributing
 
-If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://Okta.com/topics/flowpipe-mod)) we would love you to join the community and start contributing.
+If you have an idea for additional controls or just want to help maintain and extend this mod ([or others](https://github.com/topics/flowpipe-mod)) we would love you to join the community and start contributing.
 
 - **[Join our Slack community →](https://flowpipe.io/community/join)** and hang out with other Mod developers.
 
