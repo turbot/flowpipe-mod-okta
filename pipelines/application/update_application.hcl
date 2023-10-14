@@ -43,15 +43,7 @@ pipeline "update_application" {
     optional    = true
   }
 
-  step "pipeline" "get_app_details" {
-    pipeline = pipeline.get_application
-    args = {
-      app_id = param.app_id
-    }
-  }
-
   step "http" "update_app" {
-    depends_on = [step.pipeline.get_app_details]
     method     = "put"
     url        = "${param.domain}/api/v1/apps/${param.app_id}"
     request_headers = {
@@ -60,11 +52,7 @@ pipeline "update_application" {
     }
 
     request_body = jsonencode({
-      name       = (param.name != null ? param.name : jsondecode(step.pipeline.get_app_details.name)["name"])
-      label      = (param.label != null ? param.label : jsondecode(step.pipeline.get_app_details.label)["label"])
-      signOnMode = (param.sign_on_mode != null ? param.sign_on_mode : jsondecode(step.pipeline.get_app_details.sign_on_mode)["signOnMode"])
-      status     = (param.status != null ? param.status : jsondecode(step.pipeline.get_app_details.status)["status"])
-
+      for name, value in param : try(local.application_common_param[name], name) => value if contains(keys(local.application_common_param), name) && value != null
     })
   }
 

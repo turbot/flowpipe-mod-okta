@@ -6,4 +6,11 @@ locals {
     login        = "login"
     mobile_phone = "mobilePhone"
   }
+
+  application_common_param = {
+    name         = "name"
+    label        = "label"
+    sign_on_mode = "signOnMode"
+    status       = "status"
+  }
 }

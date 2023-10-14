@@ -69,10 +69,6 @@ pipeline "update_user_profile" {
     value       = step.http.update_user_profile.response_body
   }
 
-  output "test" {
-    value = local.user_common_param
-  }
-
   output "user" {
     description = "User details."
     value       = step.pipeline.get_user_details.response_body

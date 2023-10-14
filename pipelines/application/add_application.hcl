@@ -1,5 +1,5 @@
 pipeline "add_application" {
-  title       = "Create/Add Application"
+  title       = "Add Application"
   description = "Create or Add an application."
 
   param "api_token" {
@@ -38,9 +38,7 @@ pipeline "add_application" {
     }
 
     request_body = jsonencode({
-      name       = "${param.name}"
-      label      = "${param.label}"
-      signOnMode = "${param.sign_on_mode}"
+      for name, value in param : try(local.application_common_param[name], name) => value if contains(keys(local.application_common_param), name) && value != null
     })
   }
 
