@@ -8,7 +8,7 @@ Run pipelines and use triggers for Okta resources.
 
 ## References
 
-[Okta](https://okta.com/) is a provider of Internet hosting for software development and version control using Git.
+[Okta](https://okta.com/) is a provider of identity management platform that enables businesses to securely connect the right people to the right technologies, providing seamless and secure access to various applications and resources across cloud, on-premises, and mobile environments.
 
 [Flowpipe](https://flowpipe.io) is an open source workflow tool.
 
