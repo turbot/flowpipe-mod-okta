@@ -49,15 +49,7 @@ pipeline "update_user_profile" {
     optional    = true
   }
 
-  step "pipeline" "get_user_details" {
-    pipeline = pipeline.get_user
-    args = {
-      user_id = param.user_id
-    }
-  }
-
   step "http" "update_user_profile" {
-    depends_on = [step.pipeline.get_user_details]
     method     = "post"
     url        = "${param.domain}/api/v1/users/${param.user_id}"
     request_headers = {
@@ -67,10 +59,7 @@ pipeline "update_user_profile" {
 
     request_body = jsonencode({
       profile = {
-        firstName = (param.first_name != null ? param.first_name : jsondecode(step.pipeline.get_user_details.response_body).profile.firstName)
-        lastName  = (param.last_name != null ? param.last_name : jsondecode(step.pipeline.get_user_details.response_body).profile.lastName)
-        email     = (param.email != null ? param.email : jsondecode(step.pipeline.get_user_details.response_body).profile.email)
-        login     = (param.login != null ? param.login : jsondecode(step.pipeline.get_user_details.response_body).profile.login)
+         for name, value in param : try(local.user_common_param[name], name) => value if contains(keys(local.user_common_param), name) && value != null
       }
     })
   }
@@ -78,6 +67,10 @@ pipeline "update_user_profile" {
   output "userProfile" {
     description = "Updated user profile details."
     value       = step.http.update_user_profile.response_body
+  }
+
+  output "test" {
+    value = local.user_common_param
   }
 
   output "user" {

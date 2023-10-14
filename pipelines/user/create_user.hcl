@@ -18,25 +18,21 @@ pipeline "create_user" {
   param "first_name" {
     type        = string
     description = "The first name of the user."
-    optional    = true
   }
 
   param "last_name" {
     type        = string
     description = "The last name of the user."
-    optional    = true
   }
 
   param "email" {
     type        = string
     description = "The email address associated with the user's account."
-    optional    = true
   }
 
   param "login" {
     type        = string
     description = "The username or identifier used for the user to log in."
-    optional    = true
   }
 
   param "mobile_phone" {

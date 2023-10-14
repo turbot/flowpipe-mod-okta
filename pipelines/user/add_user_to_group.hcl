@@ -32,9 +32,4 @@ pipeline "add_user_to_group" {
       Authorization = "SSWS ${param.token}"
     }
   }
-
-  output "userAssign" {
-    description = "Details of Adding a User to a Group"
-    value       = step.http.add_user_to_group.response_body
-  }
 }
