@@ -32,4 +32,8 @@ pipeline "add_user_to_group" {
       Authorization = "SSWS ${param.api_token}"
     }
   }
+
+  output "add_user_to_group_response" {
+    value = step.http.add_user_to_group.response.body
+  }
 }
