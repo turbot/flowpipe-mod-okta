@@ -1,6 +1,6 @@
-pipeline "delete_user" {
-  title       = "Delete User"
-  description = "Delete a user by ID."
+pipeline "unsuspend_user" {
+  title       = "Unsuspend User"
+  description = "Unsuspends a user and returns them to the ACTIVE state. This operation can only be performed on users that have a SUSPENDED status."
 
   param "api_token" {
     type        = string
@@ -19,9 +19,9 @@ pipeline "delete_user" {
     type        = string
   }
 
-  step "http" "delete_user" {
-    method = "delete"
-    url    = "${param.domain}/api/v1/users/${param.user_id}"
+  step "http" "unsuspend_user" {
+    method = "post"
+    url    = "${param.domain}/api/v1/users/${param.user_id}/lifecycle/unsuspend"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
