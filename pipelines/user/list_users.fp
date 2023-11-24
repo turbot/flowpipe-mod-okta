@@ -1,17 +1,17 @@
 pipeline "list_users" {
   title       = "List Users"
-  description = "List users."
+  description = "Lists all users that do not have a status of 'DEPROVISIONED'."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   step "http" "list_users" {
@@ -24,7 +24,7 @@ pipeline "list_users" {
   }
 
   output "users" {
-    description = "Details of the users."
     value       = step.http.list_users.response_body
+    description = "List of active users."
   }
 }

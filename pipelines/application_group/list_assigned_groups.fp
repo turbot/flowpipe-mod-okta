@@ -1,6 +1,6 @@
-pipeline "get_application" {
-  title       = "Retrieve Application"
-  description = "Retrieves an application from your Okta organization by id."
+pipeline "list_assigned_groups" {
+  title       = "List Assigned Groups"
+  description = "Lists all group assignments for an application."
 
   param "api_token" {
     description = local.api_token_param_description
@@ -19,17 +19,17 @@ pipeline "get_application" {
     type        = string
   }
 
-  step "http" "get_application" {
+  step "http" "list_assigned_groups" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}"
+    url    = "${param.domain}/api/v1/apps/${param.app_id}/groups"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
     }
   }
 
-  output "application" {
-    value       = step.http.get_application.response_body
-    description = "Application details."
+  output "application_groups" {
+    value       = step.http.list_assigned_groups.response_body
+    description = "List of assigned groups for the application."
   }
 }

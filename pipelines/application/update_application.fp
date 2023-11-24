@@ -1,51 +1,51 @@
 pipeline "update_application" {
-  title       = "Update Application"
-  description = "Update an application."
+  title       = "Replace Application"
+  description = "Replaces an application."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "app_id" {
-    description = "ID of an application."
+    description = local.application_id_param_description
     type        = string
   }
 
   param "name" {
+    description = "Unique key for the application definition."
     type        = string
-    description = "Unique key for app definition."
     optional    = true
   }
 
   param "label" {
-    type        = string
     description = "User-defined display name for app."
+    type        = string
     optional    = true
   }
 
   param "sign_on_mode" {
-    type        = string
     description = "Authentication mode of app."
+    type        = string
     optional    = true
   }
 
   param "status" {
+    description = "App instance status."
     type        = string
-    description = "Status of app."
     optional    = true
   }
 
   step "http" "update_application" {
-    method     = "put"
-    url        = "${param.domain}/api/v1/apps/${param.app_id}"
+    method = "put"
+    url    = "${param.domain}/api/v1/apps/${param.app_id}"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
@@ -56,8 +56,8 @@ pipeline "update_application" {
     })
   }
 
-  output "UpdatedApplication" {
-    description = "Updated application details."
+  output "application" {
     value       = step.http.update_application.response_body
+    description = "Updated application details."
   }
 }

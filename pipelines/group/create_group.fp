@@ -1,25 +1,27 @@
-pipeline "add_group" {
+pipeline "create_group" {
   title       = "Create Group"
-  description = "Create a group."
+  description = "Creates a new group with OKTA_GROUP type."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "group_name" {
-    type = string
+    description = "The name of the group."
+    type        = string
   }
 
   param "group_description" {
-    type = string
+    description = "The description of the group."
+    type        = string
   }
 
   step "http" "add_group" {
@@ -39,7 +41,7 @@ pipeline "add_group" {
   }
 
   output "group" {
-    description = "Group details."
     value       = step.http.add_group.response_body
+    description = "Created group."
   }
 }

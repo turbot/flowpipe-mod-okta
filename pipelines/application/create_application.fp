@@ -1,21 +1,21 @@
-pipeline "add_application" {
-  title       = "Add Application"
-  description = "Create or Add an application."
+pipeline "create_application" {
+  title       = "Create Application"
+  description = "Creates a new application to your Okta organization."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "name" {
-    description = "Unique key for app definition."
+    description = "Unique key for the application definition."
     type        = string
   }
 
@@ -25,11 +25,11 @@ pipeline "add_application" {
   }
 
   param "sign_on_mode" {
-    description = "Authentication mode of app."
+    description = "Authentication mode for the app."
     type        = string
   }
 
-  step "http" "add_application" {
+  step "http" "create_application" {
     method = "post"
     url    = "${param.domain}/api/v1/apps"
     request_headers = {
@@ -43,7 +43,7 @@ pipeline "add_application" {
   }
 
   output "application" {
-    description = "Application Details"
-    value       = step.http.add_application.response_body
+    value       = step.http.create_application.response_body
+    description = "Created application."
   }
 }

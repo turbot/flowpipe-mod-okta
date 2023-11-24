@@ -1,6 +1,6 @@
-pipeline "get_group" {
-  title       = "Retrieve Group"
-  description = "Retrieves a group by ID."
+pipeline "list_member_users" {
+  title       = "List Member Users"
+  description = "Lists all users that are a member of a group."
 
   param "api_token" {
     description = local.api_token_param_description
@@ -19,17 +19,18 @@ pipeline "get_group" {
     type        = string
   }
 
-  step "http" "get_group" {
+  step "http" "list_member_users" {
     method = "get"
-    url    = "${param.domain}/api/v1/groups/${param.group_id}"
+    url    = "${param.domain}/api/v1/groups/${param.group_id}/users"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
     }
   }
 
-  output "group" {
-    value       = step.http.get_group.response_body
-    description = "Group details."
+
+  output "group_members" {
+    value       = step.http.list_member_users.response_body
+    description = "List of users that are members of the group."
   }
 }

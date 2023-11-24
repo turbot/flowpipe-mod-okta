@@ -1,21 +1,21 @@
 pipeline "delete_group" {
   title       = "Delete Group"
-  description = "Delete a group by ID."
+  description = "Deletes a group with OKTA_GROUP type."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "group_id" {
-    description = "The ID of a group."
+    description = local.group_id_param_description
     type        = string
   }
 

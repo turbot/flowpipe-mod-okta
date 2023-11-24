@@ -1,6 +1,6 @@
-pipeline "get_group" {
-  title       = "Retrieve Group"
-  description = "Retrieves a group by ID."
+pipeline "assign_group" {
+  title       = "Assign Group"
+  description = "Assigns a group to an application."
 
   param "api_token" {
     description = local.api_token_param_description
@@ -19,17 +19,22 @@ pipeline "get_group" {
     type        = string
   }
 
-  step "http" "get_group" {
-    method = "get"
-    url    = "${param.domain}/api/v1/groups/${param.group_id}"
+  param "app_id" {
+    description = local.application_id_param_description
+    type        = string
+  }
+
+  step "http" "assign_group" {
+    method = "put"
+    url    = "${param.domain}/api/v1/apps/${param.app_id}/groups/${param.group_id}"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
     }
   }
 
-  output "group" {
-    value       = step.http.get_group.response_body
-    description = "Group details."
+  output "application_group" {
+    value       = step.http.assign_group.response_body
+    description = "The assigned group."
   }
 }

@@ -1,6 +1,6 @@
-pipeline "create_user" {
-  title       = "Create User"
-  description = "Creates a new user in your Okta organization."
+pipeline "update_user" {
+  title       = "Update User"
+  description = "Replaces a user's profile using strict-update semantics."
 
   param "api_token" {
     description = local.api_token_param_description
@@ -12,6 +12,11 @@ pipeline "create_user" {
     description = local.domain_param_description
     type        = string
     default     = var.domain
+  }
+
+  param "user_id" {
+    description = local.user_id_param_description
+    type        = string
   }
 
   param "first_name" {
@@ -34,18 +39,9 @@ pipeline "create_user" {
     type        = string
   }
 
-  param "password" {
-    description = "Specifies the password for a user."
-    type        = string
-  }
-
-  // Create user with password
-  step "http" "create_user" {
-    if = param.password != ""
-
+  step "http" "update_user" {
     method = "post"
-    url    = "${param.domain}/api/v1/users"
-
+    url    = "${param.domain}/api/v1/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
@@ -53,19 +49,13 @@ pipeline "create_user" {
 
     request_body = jsonencode({
       profile = {
-        firstName = param.first_name
-        lastName  = param.last_name
-        email     = param.email
-        login     = param.login
-      }
-      credentials = {
-        password = param.password
+        for name, value in param : try(local.user_common_param[name], name) => value if contains(keys(local.user_common_param), name) && value != null
       }
     })
   }
 
   output "user" {
-    value       = step.http.create_user.response_body
-    description = "Created user details."
+    value       = step.http.update_user.response_body
+    description = "Updated user details."
   }
 }

@@ -1,31 +1,30 @@
 pipeline "list_groups" {
   title       = "List Groups"
-  description = "List of groups for the okta account."
+  description = "Lists all groups."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   step "http" "list_groups" {
     method = "get"
-    url    = "${param.domain}/api/v1/groups?limit=200"
+    url    = "${param.domain}/api/v1/groups"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"
     }
   }
 
-
   output "groups" {
-    description = "Group details."
     value       = step.http.list_groups.response_body
+    description = "List of groups."
   }
 }

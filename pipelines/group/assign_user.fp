@@ -1,31 +1,31 @@
-pipeline "remove_user_from_group" {
-  title       = "User removal from Group"
-  description = "Remove a user from a group."
+pipeline "assign_user" {
+  title       = "Assign User"
+  description = "Assigns a user to a group with 'OKTA_GROUP' type."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "group_id" {
-    description = "The ID of a group."
+    description = local.group_id_param_description
     type        = string
   }
 
   param "user_id" {
-    description = "The ID of an user."
+    description = local.user_id_param_description
     type        = string
   }
 
-  step "http" "remove_user_from_group" {
-    method = "delete"
+  step "http" "assign_user" {
+    method = "put"
     url    = "${param.domain}/api/v1/groups/${param.group_id}/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"

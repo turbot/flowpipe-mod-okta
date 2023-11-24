@@ -1,21 +1,21 @@
 pipeline "delete_application" {
-  title       = "Delete APPlication"
-  description = "Delete an application."
+  title       = "Delete Application"
+  description = "Deletes an inactive application."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "app_id" {
-    description = "ID of an application."
+    description = local.application_id_param_description
     type        = string
   }
 

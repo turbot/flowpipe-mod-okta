@@ -1,30 +1,30 @@
-pipeline "remove_group_from_application" {
-  title       = "Group removal from Application"
-  description = "Remove a group assignment from an application."
+pipeline "unassign_group" {
+  title       = "Unassign Group"
+  description = "Unassigns a group from an application."
 
   param "api_token" {
+    description = local.api_token_param_description
     type        = string
-    description = "The Okta personal access api_token to authenticate to the okta APIs."
     default     = var.api_token
   }
 
   param "domain" {
+    description = local.domain_param_description
     type        = string
-    description = "The URL of the Okta domain."
-    default     = var.okta_domain
+    default     = var.domain
   }
 
   param "group_id" {
-    description = "The ID of a group."
+    description = local.group_id_param_description
     type        = string
   }
 
   param "app_id" {
-    description = "ID of an application."
+    description = local.application_id_param_description
     type        = string
   }
 
-  step "http" "remove_group_from_application" {
+  step "http" "unassign_group" {
     method = "delete"
     url    = "${param.domain}/api/v1/apps/${param.app_id}/groups/${param.group_id}"
     request_headers = {
