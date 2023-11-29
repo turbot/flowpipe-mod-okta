@@ -3,40 +3,40 @@ pipeline "update_user" {
   description = "Replaces a user's profile using strict-update semantics."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "user_id" {
-    description = local.user_id_param_description
     type        = string
+    description = local.user_id_param_description
   }
 
   param "first_name" {
-    description = "Given name of the user."
     type        = string
+    description = "Given name of the user."
   }
 
   param "last_name" {
-    description = "The family name of the user."
     type        = string
+    description = "The family name of the user."
   }
 
   param "email" {
-    description = "The primary email address of the user."
     type        = string
+    description = "The primary email address of the user."
   }
 
   param "login" {
-    description = "The unique identifier for the user."
     type        = string
+    description = "The unique identifier for the user."
   }
 
   step "http" "update_user" {
@@ -55,7 +55,7 @@ pipeline "update_user" {
   }
 
   output "user" {
-    value       = step.http.update_user.response_body
     description = "Updated user details."
+    value       = step.http.update_user.response_body
   }
 }

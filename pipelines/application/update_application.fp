@@ -3,43 +3,43 @@ pipeline "update_application" {
   description = "Replaces an application."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "app_id" {
-    description = local.application_id_param_description
     type        = string
+    description = local.application_id_param_description
   }
 
   param "name" {
-    description = "Unique key for the application definition."
     type        = string
+    description = "Unique key for the application definition."
     optional    = true
   }
 
   param "label" {
-    description = "User-defined display name for app."
     type        = string
+    description = "User-defined display name for app."
     optional    = true
   }
 
   param "sign_on_mode" {
-    description = "Authentication mode of app."
     type        = string
+    description = "Authentication mode of app."
     optional    = true
   }
 
   param "status" {
-    description = "App instance status."
     type        = string
+    description = "App instance status."
     optional    = true
   }
 
@@ -77,7 +77,7 @@ pipeline "update_application" {
   }
 
   output "application" {
-    value       = step.http.update_application.response_body
     description = "Updated application details."
+    value       = step.http.update_application.response_body
   }
 }

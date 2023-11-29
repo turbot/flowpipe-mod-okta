@@ -3,20 +3,20 @@ pipeline "delete_group" {
   description = "Deletes a group with OKTA_GROUP type."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "group_id" {
-    description = local.group_id_param_description
     type        = string
+    description = local.group_id_param_description
   }
 
   step "http" "delete_group" {

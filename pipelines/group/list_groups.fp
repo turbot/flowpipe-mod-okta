@@ -3,14 +3,14 @@ pipeline "list_groups" {
   description = "Lists all groups."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
@@ -24,7 +24,7 @@ pipeline "list_groups" {
   }
 
   output "groups" {
-    value       = step.http.list_groups.response_body
     description = "List of groups."
+    value       = step.http.list_groups.response_body
   }
 }

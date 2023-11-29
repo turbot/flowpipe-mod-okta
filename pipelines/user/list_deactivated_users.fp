@@ -3,14 +3,14 @@ pipeline "list_deactivated_users" {
   description = "Lists all users that have a status of 'DEPROVISIONED'."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
@@ -24,8 +24,8 @@ pipeline "list_deactivated_users" {
   }
 
   output "users" {
-    value       = step.http.list_deactivated_users.response_body
     description = "List of deactivated users."
+    value       = step.http.list_deactivated_users.response_body
   }
 
 }

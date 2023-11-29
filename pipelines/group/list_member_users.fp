@@ -3,20 +3,20 @@ pipeline "list_member_users" {
   description = "Lists all users that are a member of a group."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "group_id" {
-    description = local.group_id_param_description
     type        = string
+    description = local.group_id_param_description
   }
 
   step "http" "list_member_users" {
@@ -29,7 +29,7 @@ pipeline "list_member_users" {
   }
 
   output "group_members" {
-    value       = step.http.list_member_users.response_body
     description = "List of users that are members of the group."
+    value       = step.http.list_member_users.response_body
   }
 }

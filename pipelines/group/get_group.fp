@@ -3,20 +3,20 @@ pipeline "get_group" {
   description = "Retrieves a group by ID."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "group_id" {
-    description = local.group_id_param_description
     type        = string
+    description = local.group_id_param_description
   }
 
   step "http" "get_group" {
@@ -29,7 +29,7 @@ pipeline "get_group" {
   }
 
   output "group" {
-    value       = step.http.get_group.response_body
     description = "Group details."
+    value       = step.http.get_group.response_body
   }
 }

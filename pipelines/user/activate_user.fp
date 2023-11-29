@@ -3,20 +3,20 @@ pipeline "activate_user" {
   description = "Activate a user. This operation can only be performed on users with a STAGED or DEPROVISIONED status. Activation of a user is an asynchronous operation."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "user_id" {
-    description = local.user_id_param_description
     type        = string
+    description = local.user_id_param_description
   }
 
   step "http" "activate_user" {
@@ -29,7 +29,7 @@ pipeline "activate_user" {
   }
 
   output "activation_details" {
-    value       = step.http.activate_user.response_body
     description = "Activation details."
+    value       = step.http.activate_user.response_body
   }
 }

@@ -3,30 +3,30 @@ pipeline "create_application" {
   description = "Creates a new application to your Okta organization."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "name" {
-    description = "Unique key for the application definition."
     type        = string
+    description = "Unique key for the application definition."
   }
 
   param "label" {
-    description = "User-defined display name for app."
     type        = string
+    description = "User-defined display name for app."
   }
 
   param "sign_on_mode" {
-    description = "Authentication mode for the app."
     type        = string
+    description = "Authentication mode for the app."
   }
 
   step "http" "create_application" {
@@ -43,7 +43,7 @@ pipeline "create_application" {
   }
 
   output "application" {
-    value       = step.http.create_application.response_body
     description = "Created application."
+    value       = step.http.create_application.response_body
   }
 }

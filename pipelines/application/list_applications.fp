@@ -3,14 +3,14 @@ pipeline "list_applications" {
   description = "Lists all applications."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
@@ -24,7 +24,7 @@ pipeline "list_applications" {
   }
 
   output "applications" {
-    value       = step.http.list_applications.response_body
     description = "List of applications."
+    value       = step.http.list_applications.response_body
   }
 }

@@ -3,20 +3,20 @@ pipeline "get_user" {
   description = "Retrieves a user from your Okta organization."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "user_id" {
-    description = local.user_id_param_description
     type        = string
+    description = local.user_id_param_description
   }
 
   step "http" "get_user" {
@@ -29,7 +29,7 @@ pipeline "get_user" {
   }
 
   output "user" {
-    value       = step.http.get_user.response_body
     description = "User details."
+    value       = step.http.get_user.response_body
   }
 }

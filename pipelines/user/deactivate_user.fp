@@ -3,25 +3,25 @@ pipeline "deactivate_user" {
   description = "Deactivates a user. This operation can only be performed on users that do not have a DEPROVISIONED status."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "user_id" {
-    description = local.user_id_param_description
     type        = string
+    description = local.user_id_param_description
   }
 
   param send_email {
-    description = "Send an email notifying the user that their account has been deactivated."
     type        = bool
+    description = "Send an email notifying the user that their account has been deactivated."
     default     = false
   }
 

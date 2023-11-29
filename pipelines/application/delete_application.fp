@@ -3,20 +3,20 @@ pipeline "delete_application" {
   description = "Deletes an inactive application."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "app_id" {
-    description = local.application_id_param_description
     type        = string
+    description = local.application_id_param_description
   }
 
   step "http" "delete_application" {

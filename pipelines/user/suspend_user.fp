@@ -3,20 +3,20 @@ pipeline "suspend_user" {
   description = "Suspends a user. This operation can only be performed on users with an ACTIVE status."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "user_id" {
-    description = local.user_id_param_description
     type        = string
+    description = local.user_id_param_description
   }
 
   step "http" "suspend_user" {

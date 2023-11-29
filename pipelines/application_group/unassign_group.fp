@@ -3,25 +3,25 @@ pipeline "unassign_group" {
   description = "Unassigns a group from an application."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "group_id" {
-    description = local.group_id_param_description
     type        = string
+    description = local.group_id_param_description
   }
 
   param "app_id" {
-    description = local.application_id_param_description
     type        = string
+    description = local.application_id_param_description
   }
 
   step "http" "unassign_group" {

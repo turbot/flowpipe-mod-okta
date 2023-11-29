@@ -3,25 +3,25 @@ pipeline "unassign_user" {
   description = "Unassigns a user from a group with 'OKTA_GROUP' type."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "group_id" {
-    description = local.group_id_param_description
     type        = string
+    description = local.group_id_param_description
   }
 
   param "user_id" {
-    description = local.user_id_param_description
     type        = string
+    description = local.user_id_param_description
   }
 
   step "http" "remove_user_from_group" {

@@ -3,25 +3,25 @@ pipeline "assign_group" {
   description = "Assigns a group to an application."
 
   param "api_token" {
-    description = local.api_token_param_description
     type        = string
+    description = local.api_token_param_description
     default     = var.api_token
   }
 
   param "domain" {
-    description = local.domain_param_description
     type        = string
+    description = local.domain_param_description
     default     = var.domain
   }
 
   param "group_id" {
-    description = local.group_id_param_description
     type        = string
+    description = local.group_id_param_description
   }
 
   param "app_id" {
-    description = local.application_id_param_description
     type        = string
+    description = local.application_id_param_description
   }
 
   step "http" "assign_group" {
@@ -34,7 +34,7 @@ pipeline "assign_group" {
   }
 
   output "application_group" {
-    value       = step.http.assign_group.response_body
     description = "The assigned group."
+    value       = step.http.assign_group.response_body
   }
 }
