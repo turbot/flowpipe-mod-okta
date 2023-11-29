@@ -28,7 +28,6 @@ pipeline "list_member_users" {
     }
   }
 
-
   output "group_members" {
     value       = step.http.list_member_users.response_body
     description = "List of users that are members of the group."

@@ -41,10 +41,8 @@ pipeline "create_user" {
 
   // Create user with password
   step "http" "create_user" {
-    if = param.password != ""
-
     method = "post"
-    url    = "${param.domain}/api/v1/users"
+    url    = "${param.domain}/api/v1/users?nextLogin=changePassword"
 
     request_headers = {
       Content-Type  = "application/json"
