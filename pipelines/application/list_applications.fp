@@ -14,6 +14,7 @@ pipeline "list_applications" {
     default     = var.domain
   }
 
+  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_applications" {
     method = "get"
     url    = "${param.domain}/api/v1/apps?limit=200"

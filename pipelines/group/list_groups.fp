@@ -14,6 +14,7 @@ pipeline "list_groups" {
     default     = var.domain
   }
 
+  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_groups" {
     method = "get"
     url    = "${param.domain}/api/v1/groups?limit=10000"

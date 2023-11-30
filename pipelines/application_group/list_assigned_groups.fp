@@ -19,6 +19,7 @@ pipeline "list_assigned_groups" {
     description = local.application_id_param_description
   }
 
+  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_assigned_groups" {
     method = "get"
     url    = "${param.domain}/api/v1/apps/${param.app_id}/groups?limit=200"

@@ -14,6 +14,7 @@ pipeline "list_users" {
     default     = var.domain
   }
 
+  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_users" {
     method = "get"
     url    = "${param.domain}/api/v1/users?limit=200"
