@@ -7,7 +7,7 @@ mod "okta" {
   categories    = ["okta"]
 
   opengraph {
-    title       = "Okta"
+    title       = "Okta Mod for Flowpipe"
     description = "Run pipelines to supercharge your Okta workflows using Flowpipe."
     image       = "/images/flowpipe/mods/turbot/okta-social-graphic.png"
   }

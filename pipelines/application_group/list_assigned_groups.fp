@@ -21,7 +21,7 @@ pipeline "list_assigned_groups" {
 
   step "http" "list_assigned_groups" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}/groups"
+    url    = "${param.domain}/api/v1/apps/${param.app_id}/groups?limit=200"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"

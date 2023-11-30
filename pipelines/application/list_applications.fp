@@ -16,7 +16,7 @@ pipeline "list_applications" {
 
   step "http" "list_applications" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps"
+    url    = "${param.domain}/api/v1/apps?limit=200"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"

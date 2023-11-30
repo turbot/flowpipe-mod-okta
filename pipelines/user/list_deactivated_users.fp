@@ -16,7 +16,7 @@ pipeline "list_deactivated_users" {
 
   step "http" "list_deactivated_users" {
     method = "get"
-    url    = "${param.domain}/api/v1/users?filter=status+eq+%22DEPROVISIONED%22"
+    url    = "${param.domain}/api/v1/users?limit=200&filter=status+eq+%22DEPROVISIONED%22"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"

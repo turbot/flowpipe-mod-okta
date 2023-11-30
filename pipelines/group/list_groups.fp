@@ -16,7 +16,7 @@ pipeline "list_groups" {
 
   step "http" "list_groups" {
     method = "get"
-    url    = "${param.domain}/api/v1/groups"
+    url    = "${param.domain}/api/v1/groups?limit=10000"
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${param.api_token}"

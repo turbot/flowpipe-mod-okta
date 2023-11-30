@@ -39,7 +39,7 @@ pipeline "create_user" {
     description = "Specifies the password for a user."
   }
 
-  // Create user with password
+  # Create user with password
   step "http" "create_user" {
     method = "post"
     url    = "${param.domain}/api/v1/users?nextLogin=changePassword"
