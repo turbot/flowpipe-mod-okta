@@ -1,3 +1,7 @@
+---
+repository: "https://github.com/turbot/flowpipe-mod-okta"
+---
+
 # Okta Library Mod
 
 A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
@@ -5,8 +9,6 @@ A collection of [Flowpipe](https://flowpipe.io) pipelines that can be used to:
 - List Users
 - Assign Groups to Applications
 - And more!
-
-<!-- ![image](https://github.com/turbot/flowpipe-mod-okta/blob/main/docs/images/flowpipe_test_run.png?raw=true) -->
 
 ## Documentation
 
