@@ -8,18 +8,24 @@ pipeline "list_groups" {
     default     = var.default_cred
   }
 
-  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_groups" {
     method = "get"
     url    = "${credential.okta[param.cred].domain}/api/v1/groups?limit=10000"
+
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${credential.okta[param.cred].token}"
+    }
+
+    loop {
+      until = length(split(",", result.response_headers["Link"])) < 2
+
+      url = regex("<([^>]+)>; rel=\"next\"", element([for s in split(",", result.response_headers["Link"]) : s if strcontains(s, "rel=\"next\"")], 0))[0]
     }
   }
 
   output "groups" {
     description = "List of groups."
-    value       = step.http.list_groups.response_body
+    value       = flatten([for entry in step.http.list_groups : entry.response_body])
   }
 }
