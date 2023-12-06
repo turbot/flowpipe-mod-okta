@@ -2,16 +2,10 @@ pipeline "update_application" {
   title       = "Replace Application"
   description = "Replaces an application."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
-  }
-
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "app_id" {
@@ -46,9 +40,8 @@ pipeline "update_application" {
   step "pipeline" "get_application" {
     pipeline = pipeline.get_application
     args = {
-      api_token = param.api_token
-      domain    = param.domain
-      app_id    = param.app_id
+      cred   = param.cred
+      app_id = param.app_id
     }
   }
 
@@ -56,11 +49,11 @@ pipeline "update_application" {
     depends_on = [step.pipeline.get_application]
 
     method = "put"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}"
+    url    = "${credential.okta[param.cred].domain}/api/v1/apps/${param.app_id}"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
 
     request_body = jsonencode({

@@ -2,16 +2,10 @@ pipeline "assign_user" {
   title       = "Assign User"
   description = "Assigns a user to a group with 'OKTA_GROUP' type."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
-  }
-
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "group_id" {
@@ -26,10 +20,10 @@ pipeline "assign_user" {
 
   step "http" "assign_user" {
     method = "put"
-    url    = "${param.domain}/api/v1/groups/${param.group_id}/users/${param.user_id}"
+    url    = "${credential.okta[param.cred].domain}/api/v1/groups/${param.group_id}/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
   }
 }

@@ -17,9 +17,8 @@ locals {
 
 # Common descriptions
 locals {
-  api_token_param_description      = "The personal api_token to authenticate to the Okta APIs."
+  cred_param_description           = "Name for credentials to use. If not provided, the default credentials will be used."
   application_id_param_description = "Application ID."
-  domain_param_description         = "The domain of your Okta account."
   group_id_param_description       = "The ID of the group."
   user_id_param_description        = "The unique key for the user."
 }

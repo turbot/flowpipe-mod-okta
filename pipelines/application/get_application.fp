@@ -2,16 +2,10 @@ pipeline "get_application" {
   title       = "Retrieve Application"
   description = "Retrieves an application from your Okta organization by id."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
-  }
-
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "app_id" {
@@ -21,10 +15,10 @@ pipeline "get_application" {
 
   step "http" "get_application" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps/${param.app_id}"
+    url    = "${credential.okta[param.cred].domain}/api/v1/apps/${param.app_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
   }
 

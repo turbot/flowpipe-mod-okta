@@ -2,16 +2,10 @@ pipeline "deactivate_user" {
   title       = "Deactivate User"
   description = "Deactivates a user. This operation can only be performed on users that do not have a DEPROVISIONED status."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
-  }
-
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = var.default_cred
   }
 
   param "user_id" {
@@ -19,7 +13,7 @@ pipeline "deactivate_user" {
     description = local.user_id_param_description
   }
 
-  param send_email {
+  param "send_email" {
     type        = bool
     description = "Send an email notifying the user that their account has been deactivated."
     default     = false
@@ -27,11 +21,11 @@ pipeline "deactivate_user" {
 
   step "http" "deactivate_user" {
     method = "post"
-    url    = "${param.domain}/api/v1/users/${param.user_id}/lifecycle/deactivate?sendEmail=${param.send_email}"
+    url    = "${credential.okta[param.cred].domain}/api/v1/users/${param.user_id}/lifecycle/deactivate?sendEmail=${param.send_email}"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
   }
 }
