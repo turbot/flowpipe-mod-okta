@@ -2,6 +2,10 @@ pipeline "update_user" {
   title       = "Update User"
   description = "Replaces a user's profile using strict-update semantics."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description

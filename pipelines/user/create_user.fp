@@ -2,6 +2,10 @@ pipeline "create_user" {
   title       = "Create User"
   description = "Creates a new user in your Okta organization."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description

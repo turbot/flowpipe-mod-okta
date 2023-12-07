@@ -2,6 +2,10 @@ pipeline "get_application" {
   title       = "Retrieve Application"
   description = "Retrieves an application from your Okta organization by id."
 
+  tags = {
+    type = "featured"
+  }
+
   param "cred" {
     type        = string
     description = local.cred_param_description
