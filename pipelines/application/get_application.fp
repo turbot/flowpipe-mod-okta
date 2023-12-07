@@ -5,7 +5,7 @@ pipeline "get_application" {
   param "cred" {
     type        = string
     description = local.cred_param_description
-    default     = var.default_cred
+    default     = "default"
   }
 
   param "app_id" {
@@ -16,6 +16,7 @@ pipeline "get_application" {
   step "http" "get_application" {
     method = "get"
     url    = "${credential.okta[param.cred].domain}/api/v1/apps/${param.app_id}"
+
     request_headers = {
       Content-Type  = "application/json"
       Authorization = "SSWS ${credential.okta[param.cred].token}"
