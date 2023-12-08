@@ -4,7 +4,7 @@ mod "okta" {
   color         = "#00297A"
   documentation = file("./docs/index.md")
   icon          = "/images/flowpipe/mods/turbot/okta.svg"
-  categories    = ["okta"]
+  categories    = ["access management"]
 
   opengraph {
     title       = "Okta Mod for Flowpipe"
