@@ -1,5 +1,5 @@
 pipeline "update_application" {
-  title       = "Replace Application"
+  title       = "Update Application"
   description = "Replaces an application."
 
   param "cred" {

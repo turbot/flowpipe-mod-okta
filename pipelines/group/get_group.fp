@@ -1,5 +1,5 @@
 pipeline "get_group" {
-  title       = "Retrieve Group"
+  title       = "Get Group"
   description = "Retrieves a group by ID."
 
   param "cred" {

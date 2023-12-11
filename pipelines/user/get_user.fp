@@ -1,5 +1,5 @@
 pipeline "get_user" {
-  title       = "Retrieve User"
+  title       = "Get User"
   description = "Retrieves a user from your Okta organization."
 
   param "cred" {
