@@ -2,7 +2,7 @@ mod "okta" {
   title         = "Okta"
   description   = "Run pipelines to supercharge your Okta workflows using Flowpipe."
   color         = "#00297A"
-  documentation = file("./docs/index.md")
+  documentation = file("./README.md")
   icon          = "/images/mods/turbot/okta.svg"
   categories    = ["access management"]
 
