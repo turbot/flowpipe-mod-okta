@@ -8,10 +8,6 @@ Okta pipeline library for [Flowpipe](https://flowpipe.io), enabling seamless int
 
 ## Getting started
 
-### Requirements
-
-Docker daemon must be installed and running. Please see [Install Docker Engine](https://docs.docker.com/engine/install/) for more information.
-
 ### Installation
 
 Download and install Flowpipe (https://flowpipe.io/downloads). Or use Brew:
@@ -19,13 +15,6 @@ Download and install Flowpipe (https://flowpipe.io/downloads). Or use Brew:
 ```sh
 brew tap turbot/tap
 brew install flowpipe
-```
-
-Clone:
-
-```sh
-git clone https://github.com/turbot/flowpipe-mod-okta.git
-cd flowpipe-mod-okta
 ```
 
 ### Credentials
@@ -52,6 +41,59 @@ For more information on credentials in Flowpipe, please see [Managing Credential
 
 ### Usage
 
+[Run the pipeline](https://flowpipe.io/docs/run/pipelines):
+
+```sh
+flowpipe pipeline run my_pipeline
+```
+
+[Initialize a mod](https://flowpipe.io/docs/build/index#initializing-a-mod):
+
+```sh
+mkdir my_mod
+cd my_mod
+flowpipe mod init
+```
+
+[Install the Okta mod](https://flowpipe.io/docs/build/mod-dependencies#mod-dependencies) as a dependency:
+
+```sh
+flowpipe mod install github.com/turbot/flowpipe-mod-okta
+```
+
+[Use the dependency](https://flowpipe.io/docs/build/write-pipelines/index) in a pipeline step:
+
+```sh
+vi my_pipeline.fp
+```
+
+```hcl
+pipeline "my_pipeline" {
+  
+  step "pipeline" "get_application" {
+    pipeline = okta.pipeline.get_application
+    args = {
+      app_id = "oab1cdefghijklmno0"
+    }
+  }
+}
+```
+
+[Run the pipeline](https://flowpipe.io/docs/run/pipelines):
+
+```sh
+flowpipe pipeline run my_pipeline
+```
+
+### Developing
+
+Clone:
+
+```sh
+git clone https://github.com/turbot/flowpipe-mod-okta.git
+cd flowpipe-mod-okta
+```
+
 List pipelines:
 
 ```sh
@@ -61,26 +103,14 @@ flowpipe pipeline list
 Run a pipeline:
 
 ```sh
-flowpipe pipeline run get_application
-```
-
-You can pass in pipeline arguments as well:
-
-```sh
 flowpipe pipeline run get_application --arg app_id=oab1cdefghijklmno0
 ```
 
 To use a specific `credential`, specify the `cred` pipeline argument:
 
 ```sh
-flowpipe pipeline run get_application --arg app_id=oab1cdefghijklmno0 --arg cred=okta_cred
+flowpipe pipeline run get_application --arg app_id=oab1cdefghijklmno0 --arg cred=okta_profile
 ```
-
-For more examples on how you can run pipelines, please see [Run Pipelines](https://flowpipe.io/docs/run/pipelines).
-
-### Configuration
-
-No additional configuration is required.
 
 ## Open Source & Contributing
 
