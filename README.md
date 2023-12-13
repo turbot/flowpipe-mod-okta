@@ -8,10 +8,6 @@ Okta pipeline library for [Flowpipe](https://flowpipe.io), enabling seamless int
 
 ## Getting started
 
-### Requirements
-
-Docker daemon must be installed and running. Please see [Install Docker Engine](https://docs.docker.com/engine/install/) for more information.
-
 ### Installation
 
 Download and install Flowpipe (https://flowpipe.io/downloads). Or use Brew:
@@ -51,6 +47,8 @@ credential "okta" "okta_cred" {
 For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
 
 ### Usage
+
+Start your server to get started:
 
 List pipelines:
 
