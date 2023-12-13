@@ -2,16 +2,10 @@ pipeline "list_member_users" {
   title       = "List Member Users"
   description = "Lists all users that are a member of a group."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
-  }
-
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "group_id" {
@@ -19,18 +13,24 @@ pipeline "list_member_users" {
     description = local.group_id_param_description
   }
 
-  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_member_users" {
     method = "get"
-    url    = "${param.domain}/api/v1/groups/${param.group_id}/users?limit=1000"
+    url    = "${credential.okta[param.cred].domain}/api/v1/groups/${param.group_id}/users?limit=1000"
+
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
+    }
+
+    loop {
+      until = length(split(",", result.response_headers["Link"])) < 2
+
+      url = regex("<([^>]+)>; rel=\"next\"", element([for s in split(",", result.response_headers["Link"]) : s if strcontains(s, "rel=\"next\"")], 0))[0]
     }
   }
 
   output "group_members" {
     description = "List of users that are members of the group."
-    value       = step.http.list_member_users.response_body
+    value       = flatten([for entry in step.http.list_member_users : entry.response_body])
   }
 }

@@ -1,17 +1,11 @@
 pipeline "get_user" {
-  title       = "Retrieve User"
+  title       = "Get User"
   description = "Retrieves a user from your Okta organization."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
-  }
-
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "user_id" {
@@ -21,10 +15,10 @@ pipeline "get_user" {
 
   step "http" "get_user" {
     method = "get"
-    url    = "${param.domain}/api/v1/users/${param.user_id}"
+    url    = "${credential.okta[param.cred].domain}/api/v1/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
   }
 

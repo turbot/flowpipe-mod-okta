@@ -2,30 +2,30 @@ pipeline "list_applications" {
   title       = "List Applications"
   description = "Lists all applications."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
+    description = local.cred_param_description
+    default     = "default"
   }
 
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
-  }
-
-  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_applications" {
     method = "get"
-    url    = "${param.domain}/api/v1/apps?limit=200"
+    url    = "${credential.okta[param.cred].domain}/api/v1/apps?limit=200"
+
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
+    }
+
+    loop {
+      until = length(split(",", result.response_headers["Link"])) < 2
+
+      url = regex("<([^>]+)>; rel=\"next\"", element([for s in split(",", result.response_headers["Link"]) : s if strcontains(s, "rel=\"next\"")], 0))[0]
     }
   }
 
   output "applications" {
     description = "List of applications."
-    value       = step.http.list_applications.response_body
+    value       = flatten([for entry in step.http.list_applications : entry.response_body])
   }
 }

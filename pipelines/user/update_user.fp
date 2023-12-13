@@ -2,16 +2,14 @@ pipeline "update_user" {
   title       = "Update User"
   description = "Replaces a user's profile using strict-update semantics."
 
-  param "api_token" {
-    type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
+  tags = {
+    type = "featured"
   }
 
-  param "domain" {
+  param "cred" {
     type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "user_id" {
@@ -41,10 +39,10 @@ pipeline "update_user" {
 
   step "http" "update_user" {
     method = "post"
-    url    = "${param.domain}/api/v1/users/${param.user_id}"
+    url    = "${credential.okta[param.cred].domain}/api/v1/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
 
     request_body = jsonencode({

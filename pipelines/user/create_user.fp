@@ -2,16 +2,14 @@ pipeline "create_user" {
   title       = "Create User"
   description = "Creates a new user in your Okta organization."
 
-  param "api_token" {
-    type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
+  tags = {
+    type = "featured"
   }
 
-  param "domain" {
+  param "cred" {
     type        = string
-    description = local.domain_param_description
-    default     = var.domain
+    description = local.cred_param_description
+    default     = "default"
   }
 
   param "first_name" {
@@ -42,11 +40,11 @@ pipeline "create_user" {
   # Create user with password
   step "http" "create_user" {
     method = "post"
-    url    = "${param.domain}/api/v1/users?nextLogin=changePassword"
+    url    = "${credential.okta[param.cred].domain}/api/v1/users?nextLogin=changePassword"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
     }
 
     request_body = jsonencode({

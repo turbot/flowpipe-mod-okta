@@ -2,31 +2,30 @@ pipeline "list_deactivated_users" {
   title       = "List Deactivated Users"
   description = "Lists all users that have a status of 'DEPROVISIONED'."
 
-  param "api_token" {
+  param "cred" {
     type        = string
-    description = local.api_token_param_description
-    default     = var.api_token
+    description = local.cred_param_description
+    default     = "default"
   }
 
-  param "domain" {
-    type        = string
-    description = local.domain_param_description
-    default     = var.domain
-  }
-
-  # TODO: Add pagination once multiple response headers are returned
   step "http" "list_deactivated_users" {
     method = "get"
-    url    = "${param.domain}/api/v1/users?limit=200&filter=status+eq+%22DEPROVISIONED%22"
+    url    = "${credential.okta[param.cred].domain}/api/v1/users?filter=status+eq+%22DEPROVISIONED%22&limit=200"
+
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${param.api_token}"
+      Authorization = "SSWS ${credential.okta[param.cred].token}"
+    }
+
+    loop {
+      until = length(split(",", result.response_headers["Link"])) < 2
+
+      url = regex("<([^>]+)>; rel=\"next\"", element([for s in split(",", result.response_headers["Link"]) : s if strcontains(s, "rel=\"next\"")], 0))[0]
     }
   }
 
   output "users" {
     description = "List of deactivated users."
-    value       = step.http.list_deactivated_users.response_body
+    value       = flatten([for entry in step.http.list_deactivated_users : entry.response_body])
   }
-
 }
