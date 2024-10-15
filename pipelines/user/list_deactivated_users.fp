@@ -2,19 +2,19 @@ pipeline "list_deactivated_users" {
   title       = "List Deactivated Users"
   description = "Lists all users that have a status of 'DEPROVISIONED'."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   step "http" "list_deactivated_users" {
     method = "get"
-    url    = "${credential.okta[param.cred].domain}/api/v1/users?filter=status+eq+%22DEPROVISIONED%22&limit=200"
+    url    = "${param.conn.domain}/api/v1/users?filter=status+eq+%22DEPROVISIONED%22&limit=200"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     loop {

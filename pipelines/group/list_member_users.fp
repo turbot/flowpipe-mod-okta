@@ -2,10 +2,10 @@ pipeline "list_member_users" {
   title       = "List Member Users"
   description = "Lists all users that are a member of a group."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "group_id" {
@@ -15,11 +15,11 @@ pipeline "list_member_users" {
 
   step "http" "list_member_users" {
     method = "get"
-    url    = "${credential.okta[param.cred].domain}/api/v1/groups/${param.group_id}/users?limit=1000"
+    url    = "${param.conn.domain}/api/v1/groups/${param.group_id}/users?limit=1000"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     loop {

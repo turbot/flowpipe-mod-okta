@@ -6,10 +6,10 @@ pipeline "create_user" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "first_name" {
@@ -40,11 +40,11 @@ pipeline "create_user" {
   # Create user with password
   step "http" "create_user" {
     method = "post"
-    url    = "${credential.okta[param.cred].domain}/api/v1/users?nextLogin=changePassword"
+    url    = "${param.conn.domain}/api/v1/users?nextLogin=changePassword"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     request_body = jsonencode({

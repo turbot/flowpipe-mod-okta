@@ -2,10 +2,10 @@ pipeline "update_application" {
   title       = "Update Application"
   description = "Replaces an application."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "app_id" {
@@ -49,11 +49,11 @@ pipeline "update_application" {
     depends_on = [step.pipeline.get_application]
 
     method = "put"
-    url    = "${credential.okta[param.cred].domain}/api/v1/apps/${param.app_id}"
+    url    = "${param.conn.domain}/api/v1/apps/${param.app_id}"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     request_body = jsonencode({

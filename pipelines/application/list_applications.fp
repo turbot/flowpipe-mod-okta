@@ -2,19 +2,19 @@ pipeline "list_applications" {
   title       = "List Applications"
   description = "Lists all applications."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   step "http" "list_applications" {
     method = "get"
-    url    = "${credential.okta[param.cred].domain}/api/v1/apps?limit=200"
+    url    = "${param.conn.domain}/api/v1/apps?limit=200"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     loop {

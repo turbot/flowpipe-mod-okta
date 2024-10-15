@@ -6,10 +6,10 @@ pipeline "update_user" {
     type = "featured"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "user_id" {
@@ -39,10 +39,10 @@ pipeline "update_user" {
 
   step "http" "update_user" {
     method = "post"
-    url    = "${credential.okta[param.cred].domain}/api/v1/users/${param.user_id}"
+    url    = "${param.conn.domain}/api/v1/users/${param.user_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     request_body = jsonencode({
