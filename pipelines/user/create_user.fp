@@ -3,7 +3,7 @@ pipeline "create_user" {
   description = "Creates a new user in your Okta organization."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

@@ -3,7 +3,7 @@ pipeline "get_application" {
   description = "Retrieves an application from your Okta organization by id."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

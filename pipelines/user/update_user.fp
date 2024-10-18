@@ -3,7 +3,7 @@ pipeline "update_user" {
   description = "Replaces a user's profile using strict-update semantics."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {

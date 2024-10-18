@@ -3,7 +3,7 @@ pipeline "activate_user" {
   description = "Activate a user. This operation can only be performed on users with a STAGED or DEPROVISIONED status. Activation of a user is an asynchronous operation."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
   param "conn" {
