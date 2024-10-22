@@ -40,7 +40,7 @@ pipeline "update_application" {
   step "pipeline" "get_application" {
     pipeline = pipeline.get_application
     args = {
-      cred   = param.cred
+      conn   = param.conn
       app_id = param.app_id
     }
   }

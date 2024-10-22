@@ -11,4 +11,10 @@ mod "okta" {
     description = "Run pipelines to supercharge your Okta workflows using Flowpipe."
     image       = "/images/mods/turbot/okta-social-graphic.png"
   }
+
+  require {
+    flowpipe {
+      min_version = "1.0.0"
+    }
+  }
 }
