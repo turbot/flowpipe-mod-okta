@@ -2,10 +2,10 @@ pipeline "list_assigned_groups" {
   title       = "List Assigned Groups"
   description = "Lists all group assignments for an application."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "app_id" {
@@ -15,11 +15,11 @@ pipeline "list_assigned_groups" {
 
   step "http" "list_assigned_groups" {
     method = "get"
-    url    = "${credential.okta[param.cred].domain}/api/v1/apps/${param.app_id}/groups?limit=200"
+    url    = "${param.conn.domain}/api/v1/apps/${param.app_id}/groups?limit=200"
 
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     loop {

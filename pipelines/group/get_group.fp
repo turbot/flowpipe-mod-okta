@@ -2,10 +2,10 @@ pipeline "get_group" {
   title       = "Get Group"
   description = "Retrieves a group by ID."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "group_id" {
@@ -15,10 +15,10 @@ pipeline "get_group" {
 
   step "http" "get_group" {
     method = "get"
-    url    = "${credential.okta[param.cred].domain}/api/v1/groups/${param.group_id}"
+    url    = "${param.conn.domain}/api/v1/groups/${param.group_id}"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
   }
 

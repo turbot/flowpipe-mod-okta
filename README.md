@@ -17,27 +17,27 @@ brew tap turbot/tap
 brew install flowpipe
 ```
 
-### Credentials
+### Connections
 
 By default, the following environment variables will be used for authentication:
 
 - `OKTA_TOKEN`
 - `OKTA_ORGURL`
 
-You can also create `credential` resources in configuration files:
+You can also create `connection` resources in configuration files:
 
 ```sh
 vi ~/.flowpipe/config/okta.fpc
 ```
 
 ```hcl
-credential "okta" "okta_cred" {
+connection "okta" "okta_conn" {
   domain    = "https://test.okta.com"
   api_token = "00B63........"
 }
 ```
 
-For more information on credentials in Flowpipe, please see [Managing Credentials](https://flowpipe.io/docs/run/credentials).
+For more information on connections in Flowpipe, please see [Managing Connections](https://flowpipe.io/docs/run/connections).
 
 ### Usage
 
@@ -69,7 +69,7 @@ vi my_pipeline.fp
 
 ```hcl
 pipeline "my_pipeline" {
-  
+
   step "pipeline" "get_application" {
     pipeline = okta.pipeline.get_application
     args = {
@@ -106,10 +106,10 @@ Run a pipeline:
 flowpipe pipeline run get_application --arg app_id=oab1cdefghijklmno0
 ```
 
-To use a specific `credential`, specify the `cred` pipeline argument:
+To use a specific `connection`, specify the `conn` pipeline argument:
 
 ```sh
-flowpipe pipeline run get_application --arg app_id=oab1cdefghijklmno0 --arg cred=okta_profile
+flowpipe pipeline run get_application --arg app_id=oab1cdefghijklmno0 --arg conn=connection.okta.okta_profile
 ```
 
 ## Open Source & Contributing

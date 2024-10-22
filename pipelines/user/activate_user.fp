@@ -3,13 +3,13 @@ pipeline "activate_user" {
   description = "Activate a user. This operation can only be performed on users with a STAGED or DEPROVISIONED status. Activation of a user is an asynchronous operation."
 
   tags = {
-    type = "featured"
+    recommended = "true"
   }
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "user_id" {
@@ -19,10 +19,10 @@ pipeline "activate_user" {
 
   step "http" "activate_user" {
     method = "post"
-    url    = "${credential.okta[param.cred].domain}/api/v1/users/${param.user_id}/lifecycle/activate"
+    url    = "${param.conn.domain}/api/v1/users/${param.user_id}/lifecycle/activate"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
   }
 

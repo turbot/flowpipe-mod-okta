@@ -2,10 +2,10 @@ pipeline "create_application" {
   title       = "Create Application"
   description = "Creates a new application to your Okta organization."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "name" {
@@ -25,10 +25,10 @@ pipeline "create_application" {
 
   step "http" "create_application" {
     method = "post"
-    url    = "${credential.okta[param.cred].domain}/api/v1/apps"
+    url    = "${param.conn.domain}/api/v1/apps"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     request_body = jsonencode({

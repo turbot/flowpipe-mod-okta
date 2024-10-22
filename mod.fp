@@ -4,11 +4,17 @@ mod "okta" {
   color         = "#00297A"
   documentation = file("./README.md")
   icon          = "/images/mods/turbot/okta.svg"
-  categories    = ["access management"]
+  categories    = ["library", "access management"]
 
   opengraph {
     title       = "Okta Mod for Flowpipe"
     description = "Run pipelines to supercharge your Okta workflows using Flowpipe."
     image       = "/images/mods/turbot/okta-social-graphic.png"
+  }
+
+  require {
+    flowpipe {
+      min_version = "1.0.0"
+    }
   }
 }

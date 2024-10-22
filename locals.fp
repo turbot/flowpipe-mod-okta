@@ -17,7 +17,7 @@ locals {
 
 # Common descriptions
 locals {
-  cred_param_description           = "Name for credentials to use. If not provided, the default credentials will be used."
+  conn_param_description           = "Name of Okta connection to use. If not provided, the default Okta connection will be used."
   application_id_param_description = "Application ID."
   group_id_param_description       = "The ID of the group."
   user_id_param_description        = "The unique key for the user."

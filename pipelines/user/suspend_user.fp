@@ -2,10 +2,10 @@ pipeline "suspend_user" {
   title       = "Suspend User"
   description = "Suspends a user. This operation can only be performed on users with an ACTIVE status."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "user_id" {
@@ -15,10 +15,10 @@ pipeline "suspend_user" {
 
   step "http" "suspend_user" {
     method = "post"
-    url    = "${credential.okta[param.cred].domain}/api/v1/users/${param.user_id}/lifecycle/suspend"
+    url    = "${param.conn.domain}/api/v1/users/${param.user_id}/lifecycle/suspend"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
   }
 }

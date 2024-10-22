@@ -2,10 +2,10 @@ pipeline "create_group" {
   title       = "Create Group"
   description = "Creates a new group with OKTA_GROUP type."
 
-  param "cred" {
-    type        = string
-    description = local.cred_param_description
-    default     = "default"
+  param "conn" {
+    type        = connection.okta
+    description = local.conn_param_description
+    default     = connection.okta.default
   }
 
   param "group_name" {
@@ -20,10 +20,10 @@ pipeline "create_group" {
 
   step "http" "add_group" {
     method = "post"
-    url    = "${credential.okta[param.cred].domain}/api/v1/groups"
+    url    = "${param.conn.domain}/api/v1/groups"
     request_headers = {
       Content-Type  = "application/json"
-      Authorization = "SSWS ${credential.okta[param.cred].token}"
+      Authorization = "SSWS ${param.conn.token}"
     }
 
     request_body = jsonencode({
